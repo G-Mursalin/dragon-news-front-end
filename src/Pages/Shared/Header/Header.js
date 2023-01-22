@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+
 const Header = () => {
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   return (
     <Navbar

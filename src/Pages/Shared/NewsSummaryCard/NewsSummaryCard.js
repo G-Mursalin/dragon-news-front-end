@@ -1,11 +1,9 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { FaEye, FaRegBookmark, FaShareAlt, FaStar } from "react-icons/fa";
 
 const NewsSummaryCard = ({ news }) => {
-  console.log(news);
   const { _id, title, details, image_url, author, rating, total_view } = news;
   return (
     <Card className="mb-5">
@@ -32,16 +30,16 @@ const NewsSummaryCard = ({ news }) => {
       <Card.Body>
         <Card.Title className="text-center">{title}</Card.Title>
         <Card.Img className="my-2" variant="top" src={image_url} />
-        <Card.Text>
+        <div>
           {details.length > 250 ? (
             <p>
               {details.slice(0, 250) + "..."}
-              <Link to={`news/${_id}`}>Read More</Link>
+              <Link to={`/news/${_id}`}>Read More</Link>
             </p>
           ) : (
-            <p> {details}</p>
+            <p>{details}</p>
           )}
-        </Card.Text>
+        </div>
       </Card.Body>
       <Card.Footer className="d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center justify-content-between">

@@ -1,6 +1,5 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import ListGroup from "react-bootstrap/ListGroup";
@@ -28,7 +27,7 @@ const RightSideNav = () => {
           <ListGroup.Item>Youtube</ListGroup.Item>
           <ListGroup.Item>Twitter</ListGroup.Item>
           <ListGroup.Item>WhatsApp</ListGroup.Item>
-          <ListGroup.Item>Discort</ListGroup.Item>
+          <ListGroup.Item>Discord</ListGroup.Item>
         </ListGroup>
       </div>
 

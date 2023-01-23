@@ -4,11 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { Image } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Button from "react-bootstrap/Button";
 
 const Header = () => {
   const { user, userLogOut } = useContext(AuthContext);
@@ -80,7 +81,14 @@ const Header = () => {
               </Nav.Link>
             </Nav>
           ) : (
-            ""
+            <>
+              <Link to="/login" className="me-3">
+                <Button variant="dark">Login</Button>
+              </Link>
+              <Link to="/signup">
+                <Button variant="dark">Signup</Button>
+              </Link>
+            </>
           )}
           <div className="d-block d-lg-none">
             <LeftSideNav />

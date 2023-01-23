@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import ListGroup from "react-bootstrap/ListGroup";
 import Carousel from "react-bootstrap/Carousel";
 import { FaFacebook, FaYoutube, FaTwitter } from "react-icons/fa";
-
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import Brand1 from "./../../../assets/brands/Brand1.png";
 import Brand2 from "./../../../assets/brands/Brand2.png";
+import { GoogleAuthProvider } from "firebase/auth";
+import { toast } from "react-toastify";
 
 const RightSideNav = () => {
+  const googleProvider = new GoogleAuthProvider();
+  const { providerLogin } = useContext(AuthContext);
+
+  const handleGoogleLogin = () => {
+    providerLogin(googleProvider)
+      .then((result) => {
+        toast.success("Successfully Login");
+      })
+      .catch((error) => {
+        const message = error.message;
+        toast.error(error.message);
+      });
+  };
+
   return (
     <div>
       <div className="d-grid gap-2">
         <Button
           variant="outline-primary"
           className="d-flex align-items-center justify-content-center gap-2"
+          onClick={handleGoogleLogin}
         >
           <FaGoogle /> Login with Google
         </Button>

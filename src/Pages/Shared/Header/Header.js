@@ -6,10 +6,22 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { Image } from "react-bootstrap";
+import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userLogOut } = useContext(AuthContext);
   const navigate = useNavigate();
+  const handleLogOut = () => {
+    userLogOut()
+      .then(() => {
+        toast.success("Successfully LogOut");
+      })
+      .catch((error) => {
+        toast.error("Please Try Again");
+      });
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -30,24 +42,46 @@ const Header = () => {
           <Nav className="me-auto">
             <Nav.Link href="#features">Features</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
-            <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
           </Nav>
-          <Nav>
-            <Nav.Link href="#deets">More deets</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
-          </Nav>
+          {user ? (
+            <Nav>
+              <NavDropdown
+                title={
+                  user?.displayName
+                    ? user.displayName
+                    : user?.email.split("@")[0]
+                }
+                id="collasible-nav-dropdown"
+              >
+                <NavDropdown.Item onClick={handleLogOut}>
+                  Logout
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link eventKey={2} href="#memes">
+                {user?.photoURL ? (
+                  <Image
+                    style={{ height: "30px" }}
+                    roundedCircle
+                    src={user?.photoURL}
+                  />
+                ) : (
+                  <FaUser />
+                )}
+              </Nav.Link>
+            </Nav>
+          ) : (
+            ""
+          )}
           <div className="d-block d-lg-none">
             <LeftSideNav />
           </div>

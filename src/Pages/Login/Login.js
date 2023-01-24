@@ -73,7 +73,7 @@ const Login = () => {
         )}
       </div>
       <button type="submit" className="btn btn-primary d-block mx-auto w-100">
-        Login
+        LogIn
       </button>
     </form>
   );

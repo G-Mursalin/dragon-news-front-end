@@ -1,13 +1,15 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, userUpdateProfile } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [termsConditions, setTermsConditions] = useState(false);
   const navigate = useNavigate();
 
+  // Form Handler
   const handleSignup = (e) => {
     setError("");
     // Preventing Unnecessary Page Load
@@ -31,12 +33,28 @@ const Signup = () => {
         setError("");
         e.target.reset();
         toast.success("Successfully created account and login");
+        handleUpdateUserProfile(name, photoURL);
         navigate("/");
       })
       .catch((error) => {
         setError(error.message);
       });
   };
+
+  // Terms and Conditions Handler
+  const handleTermsConditions = (e) => {
+    setTermsConditions(e.target.checked);
+  };
+
+  // Handle Update User Profile
+  const handleUpdateUserProfile = (displayName, photoURL) => {
+    userUpdateProfile({ displayName, photoURL })
+      .then(() => {})
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
   return (
     <form onSubmit={handleSignup} className="w-75 mx-auto mb-2">
       <h4>Please Signup</h4>
@@ -121,8 +139,23 @@ const Signup = () => {
           ""
         )}
       </div>
-      <button type="submit" className="btn btn-primary d-block mx-auto w-100">
-        Signup
+      <div className="mb-3 form-check">
+        <input
+          type="checkbox"
+          className="form-check-input"
+          id="exampleCheck1"
+          onClick={handleTermsConditions}
+        />
+        <label className="form-check-label" htmlFor="exampleCheck1">
+          Accept Our <Link to="/terms-conditions">Terms and Conditions</Link>
+        </label>
+      </div>
+      <button
+        disabled={!termsConditions}
+        type="submit"
+        className="btn btn-primary d-block mx-auto w-100"
+      >
+        SignUp
       </button>
     </form>
   );

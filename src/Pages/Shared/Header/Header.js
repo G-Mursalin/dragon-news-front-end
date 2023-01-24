@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -13,6 +13,9 @@ import Button from "react-bootstrap/Button";
 
 const Header = () => {
   const { user, userLogOut } = useContext(AuthContext);
+
+  const [currentUser, setCurrentUser] = useState(user);
+
   const navigate = useNavigate();
   const handleLogOut = () => {
     userLogOut()
@@ -23,6 +26,11 @@ const Header = () => {
         toast.error("Please Try Again");
       });
   };
+
+  useEffect(() => {
+    setCurrentUser(user);
+  }, [user]);
+
   return (
     <Navbar
       collapseOnSelect
@@ -44,13 +52,13 @@ const Header = () => {
             <Nav.Link href="#features">Features</Nav.Link>
             <Nav.Link href="#pricing">Pricing</Nav.Link>
           </Nav>
-          {user ? (
+          {currentUser ? (
             <Nav>
               <NavDropdown
                 title={
-                  user?.displayName
-                    ? user.displayName
-                    : user?.email.split("@")[0]
+                  currentUser?.displayName
+                    ? currentUser.displayName
+                    : currentUser?.email.split("@")[0]
                 }
                 id="collasible-nav-dropdown"
               >
@@ -69,7 +77,7 @@ const Header = () => {
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link eventKey={2} href="#memes">
-                {user?.photoURL ? (
+                {currentUser?.photoURL ? (
                   <Image
                     style={{ height: "30px" }}
                     roundedCircle

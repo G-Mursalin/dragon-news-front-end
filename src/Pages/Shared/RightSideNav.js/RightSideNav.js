@@ -16,12 +16,12 @@ const RightSideNav = () => {
   const { providerLogin } = useContext(AuthContext);
 
   const handleGoogleLogin = () => {
+    // Firebase Google Signup
     providerLogin(googleProvider)
       .then((result) => {
         toast.success("Successfully Login");
       })
       .catch((error) => {
-        const message = error.message;
         toast.error(error.message);
       });
   };

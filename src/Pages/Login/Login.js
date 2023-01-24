@@ -1,10 +1,34 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const { userLogin } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
   const handleLogin = (e) => {
+    // Preventing Unnecessary Page Load
     e.preventDefault();
+
+    // Get Data From Form
     const email = e.target.email.value;
     const password = e.target.password.value;
+
+    // Firebase Login
+    userLogin(email, password)
+      .then((userCredential) => {
+        setError("");
+        e.target.reset();
+        toast.success("Successfully Login");
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -38,6 +62,15 @@ const Login = () => {
           id="exampleInputPassword1"
           required
         />
+      </div>
+      <div className="mb-3">
+        {error ? (
+          <label className="text-danger" for="exampleCheck1">
+            {error}
+          </label>
+        ) : (
+          ""
+        )}
       </div>
       <button type="submit" className="btn btn-primary d-block mx-auto w-100">
         Login

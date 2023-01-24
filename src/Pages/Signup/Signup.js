@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const { createUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const handleSignup = (e) => {
+    setError("");
+    // Preventing Unnecessary Page Load
     e.preventDefault();
+
+    // Get Data From Form
     const name = e.target.name.value;
     const photoURL = e.target.photoURL.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
 
-    console.log({ name, photoURL, email, password, confirmPassword });
+    if (password !== confirmPassword) {
+      setError("Password didn't match");
+      return;
+    }
+
+    // Firebase Signup
+    createUser(email, password)
+      .then((userCredential) => {
+        setError("");
+        e.target.reset();
+        toast.success("Successfully created account and login");
+        navigate("/");
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
   return (
     <form onSubmit={handleSignup} className="w-75 mx-auto mb-2">
@@ -85,6 +111,15 @@ const Signup = () => {
           placeholder="Confirm Password"
           required
         />
+      </div>
+      <div className="mb-3">
+        {error ? (
+          <label className="text-danger" for="exampleCheck1">
+            {error}
+          </label>
+        ) : (
+          ""
+        )}
       </div>
       <button type="submit" className="btn btn-primary d-block mx-auto w-100">
         Signup

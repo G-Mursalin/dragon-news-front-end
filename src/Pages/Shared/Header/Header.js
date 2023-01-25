@@ -79,7 +79,11 @@ const Header = () => {
               <Nav.Link eventKey={2} href="#memes">
                 {currentUser?.photoURL ? (
                   <Image
-                    style={{ height: "30px" }}
+                    style={{
+                      height: "30px",
+                      width: "30px",
+                      objectFit: "cover",
+                    }}
                     roundedCircle
                     src={user?.photoURL}
                   />

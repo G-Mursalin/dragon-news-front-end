@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
-  const { createUser, userUpdateProfile } = useContext(AuthContext);
+  const { createUser, userUpdateProfile, verifyEmail } =
+    useContext(AuthContext);
   const [error, setError] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
   const navigate = useNavigate();
@@ -32,8 +33,11 @@ const Signup = () => {
       .then((userCredential) => {
         setError("");
         e.target.reset();
-        toast.success("Successfully created account and login");
         handleUpdateUserProfile(name, photoURL);
+        handleEmailVerification();
+        toast.success(
+          "Successfully created account. A verification link send to your email. Please verify your email. Check the spam folder if it's not in the inbox"
+        );
         navigate("/");
       })
       .catch((error) => {
@@ -49,6 +53,15 @@ const Signup = () => {
   // Handle Update User Profile
   const handleUpdateUserProfile = (displayName, photoURL) => {
     userUpdateProfile({ displayName, photoURL })
+      .then(() => {})
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
+
+  // Handle Email Verification
+  const handleEmailVerification = () => {
+    verifyEmail()
       .then(() => {})
       .catch((error) => {
         toast.error(error.message);

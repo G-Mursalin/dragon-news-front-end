@@ -7,6 +7,7 @@ import Login from "../../Pages/Login/Login";
 import Signup from "../../Pages/Signup/Signup";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import TermsAndConditions from "../../Pages/Others/TermsAndConditions/TermsAndConditions";
+import Profile from "../../Pages/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -15,6 +16,11 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Home />,
+        loader: () => fetch("http://localhost:5000/api/v1/news"),
+      },
+      {
+        path: "/home",
         element: <Home />,
         loader: () => fetch("http://localhost:5000/api/v1/news"),
       },
@@ -45,6 +51,10 @@ export const router = createBrowserRouter([
       {
         path: "/terms-conditions",
         element: <TermsAndConditions />,
+      },
+      {
+        path: "/profile",
+        element: <Profile />,
       },
     ],
   },

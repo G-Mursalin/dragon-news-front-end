@@ -10,15 +10,20 @@ import Brand1 from "./../../../assets/brands/Brand1.png";
 import Brand2 from "./../../../assets/brands/Brand2.png";
 import { GoogleAuthProvider } from "firebase/auth";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const RightSideNav = () => {
   const googleProvider = new GoogleAuthProvider();
   const { providerLogin } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
   const handleGoogleLogin = () => {
     // Firebase Google Signup
     providerLogin(googleProvider)
       .then((result) => {
+        navigate(from, { replace: true });
         toast.success("Successfully Login");
       })
       .catch((error) => {

@@ -14,6 +14,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [runThisComponentAgain, setRunThisComponentAgain] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const providerLogin = (provider) => {
@@ -46,7 +47,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
+      if (currentUser && currentUser.emailVerified) {
         setUser(currentUser);
         setLoading(false);
       } else {
@@ -68,6 +69,8 @@ const AuthProvider = ({ children }) => {
     loading,
     userUpdateProfile,
     verifyEmail,
+    setLoading,
+    setRunThisComponentAgain,
   };
 
   return (

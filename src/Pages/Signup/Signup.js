@@ -36,9 +36,9 @@ const Signup = () => {
         handleUpdateUserProfile(name, photoURL);
         handleEmailVerification();
         toast.success(
-          "Successfully created account. A verification link send to your email. Please verify your email. Check the spam folder if it's not in the inbox"
+          "Successfully created your account. A verification link sends to your email. Please verify your email and login. (Check the spam folder if it's not in the inbox)"
         );
-        navigate("/");
+        navigate("/login");
       })
       .catch((error) => {
         setError(error.message);
@@ -145,7 +145,7 @@ const Signup = () => {
       </div>
       <div className="mb-3">
         {error ? (
-          <label className="text-danger" for="exampleCheck1">
+          <label className="text-danger" htmlFor="exampleCheck1">
             {error}
           </label>
         ) : (

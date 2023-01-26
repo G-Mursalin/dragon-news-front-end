@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { userLogin, user } = useContext(AuthContext);
+  const { userLogin, setLoading, setUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,17 +23,19 @@ const Login = () => {
       .then((userCredential) => {
         setError("");
         e.target.reset();
-        if (user?.emailVerified) {
+        if (userCredential?.user?.emailVerified) {
           toast.success("Successfully Login");
-        }
-        if (user?.emailVerified) {
           navigate(from, { replace: true });
+          setUser(userCredential?.user);
         } else {
-          toast.error("Your email is not verified. Please verified your email");
+          toast.error("Email is not verified");
         }
       })
       .catch((error) => {
         setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -71,7 +73,7 @@ const Login = () => {
       </div>
       <div className="mb-3">
         {error ? (
-          <label className="text-danger" for="exampleCheck1">
+          <label className="text-danger" htmlFor="exampleCheck1">
             {error}
           </label>
         ) : (

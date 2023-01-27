@@ -2,10 +2,12 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import useTitle from "../../Hooks/useTitle";
 
 const Signup = () => {
   const { createUser, userUpdateProfile, verifyEmail } =
     useContext(AuthContext);
+  useTitle("SignUp");
   const [error, setError] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -7,11 +7,12 @@ import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
+import useTitle from "../../Hooks/useTitle";
 
 const Profile = () => {
   const { user, userUpdateProfile, setRunThisComponentAgain } =
     useContext(AuthContext);
-  // const [currentUser, setCurrentUser] = useState(user);
+  useTitle("Profile");
 
   const handleUpdateProfileInfo = (e) => {
     // Preventing Reload
@@ -46,11 +47,13 @@ const Profile = () => {
       <Row>
         <Col md={4}>
           {user?.photoURL ? (
-            <Image
-              roundedCircle
-              src={user?.photoURL}
-              style={{ width: "150px", height: "150px", objectFit: "cover" }}
-            />
+            <div className="d-flex justify-content-center">
+              <Image
+                roundedCircle
+                src={user?.photoURL}
+                style={{ width: "150px", height: "150px", objectFit: "cover" }}
+              />
+            </div>
           ) : (
             <FaUser />
           )}

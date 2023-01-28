@@ -10,6 +10,7 @@ import { FaUser } from "react-icons/fa";
 import useTitle from "../../Hooks/useTitle";
 import uploadImageToImgBBAndGetURL from "./../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
 import ChangePassword from "./ChangePassword";
+import DeleteAccount from "./DeleteAccount";
 
 const Profile = () => {
   const { user, userUpdateProfile, setRunThisComponentAgain } =
@@ -17,10 +18,15 @@ const Profile = () => {
   useTitle("Profile");
   const [wait, setWait] = useState(false);
 
-  // For Change Password Model
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // For Password Change Model
+  const [showPasswordChange, setShowPasswordChange] = useState(false);
+  const handleClosePasswordChange = () => setShowPasswordChange(false);
+  const handleShowPasswordChange = () => setShowPasswordChange(true);
+
+  // For Delete Account Model
+  const [showDeleteAccount, setShowDeleteAccount] = useState(false);
+  const handleCloseDeleteAccount = () => setShowDeleteAccount(false);
+  const handleShowDeleteAccount = () => setShowDeleteAccount(true);
 
   const handleUpdateProfileInfo = async (e) => {
     setWait(true);
@@ -110,15 +116,30 @@ const Profile = () => {
               <Button
                 variant="primary"
                 className="w-100 my-2"
-                onClick={handleShow}
+                onClick={handleShowPasswordChange}
               >
                 Change Your Password
               </Button>
               <ChangePassword
-                show={show}
-                setShow={setShow}
-                handleShow={handleShow}
-                handleClose={handleClose}
+                show={showPasswordChange}
+                setShow={setShowPasswordChange}
+                handleShow={handleShowPasswordChange}
+                handleClose={handleClosePasswordChange}
+              />
+            </div>
+            <div>
+              <Button
+                variant="primary"
+                className="w-100"
+                onClick={handleShowDeleteAccount}
+              >
+                Delete Your Account
+              </Button>
+              <DeleteAccount
+                show={showDeleteAccount}
+                setShow={setShowDeleteAccount}
+                handleShow={handleShowDeleteAccount}
+                handleClose={handleCloseDeleteAccount}
               />
             </div>
           </Form>

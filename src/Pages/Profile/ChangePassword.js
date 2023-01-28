@@ -49,6 +49,7 @@ const ChangePassword = ({ show, handleShow, handleClose, setShow }) => {
             <Form.Control
               name="password"
               type="password"
+              placeholder="Minimum 6 Length Password"
               autoFocus
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -58,6 +59,7 @@ const ChangePassword = ({ show, handleShow, handleClose, setShow }) => {
             <Form.Control
               name="confirmPassword"
               type="password"
+              placeholder="Re-type Password"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
           </Form.Group>

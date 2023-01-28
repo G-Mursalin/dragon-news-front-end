@@ -170,7 +170,10 @@ const Signup = () => {
           onClick={handleTermsConditions}
         />
         <label className="form-check-label" htmlFor="exampleCheck1">
-          Accept Our <Link to="/terms-conditions">Terms and Conditions</Link>
+          Accept Our{" "}
+          <Link to="/terms-conditions" className="text-decoration-none">
+            Terms and Conditions
+          </Link>
         </label>
       </div>
       <button
@@ -180,6 +183,12 @@ const Signup = () => {
       >
         {wait ? "Please Wait..." : "SignUp"}
       </button>
+      <p className="text-center mt-1">
+        Already have an account?{" "}
+        <Link to="/login" className="text-decoration-none">
+          LogIn
+        </Link>
+      </p>
     </form>
   );
 };

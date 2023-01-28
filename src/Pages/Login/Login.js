@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useTitle from "../../Hooks/useTitle";
 
 const Login = () => {
@@ -82,9 +82,21 @@ const Login = () => {
           ""
         )}
       </div>
-      <button type="submit" className="btn btn-primary d-block mx-auto w-100">
+      <Link className="text-decoration-none" to="/forgot-password">
+        Forgot Password?
+      </Link>
+      <button
+        type="submit"
+        className="btn btn-primary d-block mx-auto w-100 my-2"
+      >
         LogIn
       </button>
+      <p className="text-center">
+        New to Dragon News?{" "}
+        <Link to="/signup" className="text-decoration-none">
+          SignUp
+        </Link>
+      </p>
     </form>
   );
 };

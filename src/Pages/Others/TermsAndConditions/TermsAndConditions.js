@@ -17,7 +17,10 @@ const TermsAndConditions = () => {
         </p>
       </div>
       <h6>
-        Go back to: <Link to="/signup">Signup</Link>
+        Go back to:{" "}
+        <Link to="/signup" className="text-decoration-none">
+          Signup
+        </Link>
       </h6>
     </div>
   );

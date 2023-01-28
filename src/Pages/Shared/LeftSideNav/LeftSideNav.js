@@ -11,11 +11,16 @@ const LeftSideNav = () => {
 
   return (
     <div>
-      <h5>Catagories:</h5>
+      <h5 className="mb-3">Catagories:</h5>
       <div>
         {categories.map((category) => (
           <p key={category.id}>
-            <Link to={`/category/${category.id}`}>{category.name}</Link>
+            <Link
+              className="text-decoration-none"
+              to={`/category/${category.id}`}
+            >
+              {category.name}
+            </Link>
           </p>
         ))}
       </div>

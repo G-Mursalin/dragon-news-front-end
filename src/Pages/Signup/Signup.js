@@ -3,6 +3,7 @@ import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import useTitle from "../../Hooks/useTitle";
+import uploadImageToImgBBAndGetURL from "../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
 
 const Signup = () => {
   const { createUser, userUpdateProfile, verifyEmail } =
@@ -10,25 +11,30 @@ const Signup = () => {
   useTitle("SignUp");
   const [error, setError] = useState("");
   const [termsConditions, setTermsConditions] = useState(false);
+  const [wait, setWait] = useState(false);
   const navigate = useNavigate();
 
   // Form Handler
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     setError("");
-    // Preventing Unnecessary Page Load
+    setWait(true);
+    // Preventing Page Re-Load
     e.preventDefault();
 
     // Get Data From Form
     const name = e.target.name.value;
-    const photoURL = e.target.photoURL.value;
+    const photo = e.target.photo.files[0];
     const email = e.target.email.value;
     const password = e.target.password.value;
     const confirmPassword = e.target.confirmPassword.value;
 
     if (password !== confirmPassword) {
+      setWait(false);
       setError("Password didn't match");
       return;
     }
+
+    const photoURL = await uploadImageToImgBBAndGetURL(photo);
 
     // Firebase Signup
     createUser(email, password)
@@ -40,9 +46,11 @@ const Signup = () => {
         toast.success(
           "Successfully created your account. A verification link sends to your email. Please verify your email and login. (Check the spam folder if it's not in the inbox)"
         );
+        setWait(false);
         navigate("/login");
       })
       .catch((error) => {
+        setWait(false);
         setError(error.message);
       });
   };
@@ -88,18 +96,18 @@ const Signup = () => {
           required
         />
       </div>
-      {/* Photo URL */}
+      {/* Photo  */}
       <div className="mb-3">
-        <label htmlFor="exampleInputPhotoURL" className="form-label">
-          Photo URL
+        <label htmlFor="formFile" className="form-label">
+          Your Photo (PNG or JPG)
         </label>
         <input
-          type="text"
-          name="photoURL"
           className="form-control"
-          id="exampleInputPhotoURL"
-          placeholder="Your Photo URL"
-          aria-describedby="emailHelp"
+          type="file"
+          name="photo"
+          accept=".jpg, .png"
+          id="formFile"
+          required
         />
       </div>
       {/* Email */}
@@ -170,7 +178,7 @@ const Signup = () => {
         type="submit"
         className="btn btn-primary d-block mx-auto w-100"
       >
-        SignUp
+        {wait ? "Please Wait..." : "SignUp"}
       </button>
     </form>
   );

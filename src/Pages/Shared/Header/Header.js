@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -57,12 +57,12 @@ const Header = () => {
                 }
                 id="collasible-nav-dropdown"
               >
-                <NavDropdown.Item onClick={handleLogOut}>
-                  Logout
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
                 <NavDropdown.Item onClick={() => navigate("/profile")}>
                   View Profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogOut}>
+                  Logout
                 </NavDropdown.Item>
               </NavDropdown>
               <Nav.Link eventKey={2} href="#memes">

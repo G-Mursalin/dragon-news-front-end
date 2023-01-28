@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
@@ -8,26 +8,32 @@ import { Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import useTitle from "../../Hooks/useTitle";
+import uploadImageToImgBBAndGetURL from "./../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
 
 const Profile = () => {
   const { user, userUpdateProfile, setRunThisComponentAgain } =
     useContext(AuthContext);
   useTitle("Profile");
+  const [wait, setWait] = useState(false);
 
-  const handleUpdateProfileInfo = (e) => {
+  const handleUpdateProfileInfo = async (e) => {
+    setWait(true);
     // Preventing Reload
     e.preventDefault();
 
     // Get Value from Form
     let displayName = e.target.displayName.value;
-    let photoURL = e.target.photoURL.value;
+    let photo = e.target.photo.files[0];
+    let photoURL = "";
 
     // Check If the input field is empty or not if then set previous value
     if (displayName.trim().length === 0) {
       displayName = user?.displayName;
     }
-    if (photoURL.trim().length === 0) {
+    if (!photo) {
       photoURL = user?.photoURL;
+    } else {
+      photoURL = await uploadImageToImgBBAndGetURL(photo);
     }
 
     // Send data to firebase
@@ -35,8 +41,10 @@ const Profile = () => {
       .then(() => {
         toast.success("Profile successfully updated!");
         setRunThisComponentAgain((pre) => !pre);
+        setWait(false);
       })
       .catch((error) => {
+        setWait(false);
         toast.error(error.message);
       });
   };
@@ -62,6 +70,7 @@ const Profile = () => {
         </Col>
         <Col>
           <Form onSubmit={handleUpdateProfileInfo}>
+            {/* Name */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Your Name</Form.Label>
               <Form.Control
@@ -70,15 +79,12 @@ const Profile = () => {
                 defaultValue={user?.displayName}
               />
             </Form.Group>
-
+            {/* Photo */}
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Photo URL</Form.Label>
-              <Form.Control
-                type="text"
-                name="photoURL"
-                defaultValue={user?.photoURL}
-              />
+              <Form.Label>Photo ((PNG or JPG))</Form.Label>
+              <Form.Control accept=".jpg, .png" type="file" name="photo" />
             </Form.Group>
+            {/* Email */}
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Your Email</Form.Label>
               <Form.Control
@@ -89,7 +95,7 @@ const Profile = () => {
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="w-100">
-              Update
+              {wait ? "Please Wait..." : "Update"}
             </Button>
           </Form>
         </Col>

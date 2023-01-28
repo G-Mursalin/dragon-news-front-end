@@ -12,12 +12,12 @@ const NewsSummaryCard = ({ news }) => {
           <div className="d-flex align-items-center justify-content-center">
             <img
               src={author?.img}
-              style={{ height: "60px" }}
+              style={{ height: "50px", width: "50px", objectFit: "cover" }}
               className="flex-shrink-0 me-3 rounded-circle"
               alt={author?.name}
             />
             <div>
-              <h5 className="mt-0 mb-0">{author?.name}</h5>
+              <h6 className="mt-0 mb-0 fw-bold">{author?.name}</h6>
               <p className="mb-0">{author?.published_date}</p>
             </div>
           </div>

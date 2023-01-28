@@ -9,12 +9,18 @@ import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import useTitle from "../../Hooks/useTitle";
 import uploadImageToImgBBAndGetURL from "./../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
+import ChangePassword from "./ChangePassword";
 
 const Profile = () => {
   const { user, userUpdateProfile, setRunThisComponentAgain } =
     useContext(AuthContext);
   useTitle("Profile");
   const [wait, setWait] = useState(false);
+
+  // For Change Password Model
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleUpdateProfileInfo = async (e) => {
     setWait(true);
@@ -71,7 +77,7 @@ const Profile = () => {
         <Col>
           <Form onSubmit={handleUpdateProfileInfo}>
             {/* Name */}
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Your Name</Form.Label>
               <Form.Control
                 type="text"
@@ -85,8 +91,10 @@ const Profile = () => {
               <Form.Control accept=".jpg, .png" type="file" name="photo" />
             </Form.Group>
             {/* Email */}
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Your Email</Form.Label>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>
+                Your Email (Email Address cannot be changed)
+              </Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -94,9 +102,25 @@ const Profile = () => {
                 readOnly
               />
             </Form.Group>
+
             <Button variant="primary" type="submit" className="w-100">
               {wait ? "Please Wait..." : "Update"}
             </Button>
+            <div>
+              <Button
+                variant="primary"
+                className="w-100 my-2"
+                onClick={handleShow}
+              >
+                Change Your Password
+              </Button>
+              <ChangePassword
+                show={show}
+                setShow={setShow}
+                handleShow={handleShow}
+                handleClose={handleClose}
+              />
+            </div>
           </Form>
         </Col>
       </Row>

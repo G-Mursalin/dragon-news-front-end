@@ -51,11 +51,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/terms-conditions",
-        element: (
-          <PrivateRoute>
-            <TermsAndConditions />
-          </PrivateRoute>
-        ),
+        element: <TermsAndConditions />,
       },
       {
         path: "/profile",

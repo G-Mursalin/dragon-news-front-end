@@ -2,9 +2,11 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
 import { FaEye, FaRegBookmark, FaShareAlt, FaStar } from "react-icons/fa";
+import { Button } from "react-bootstrap";
 
-const NewsSummaryCard = ({ news }) => {
+const NewsSummaryCard = ({ news, setSmShow, setNewsId }) => {
   const { _id, title, details, image_url, author, rating, total_view } = news;
+
   return (
     <Card className="mb-5">
       <Card.Header>
@@ -23,7 +25,16 @@ const NewsSummaryCard = ({ news }) => {
           </div>
           <div>
             <FaRegBookmark className="me-2" role="button" />
-            <FaShareAlt role="button" />
+            <Button
+              variant="outline-dark"
+              onClick={() => {
+                setSmShow(true);
+                setNewsId(_id);
+              }}
+              role="button"
+            >
+              <FaShareAlt />
+            </Button>
           </div>
         </div>
       </Card.Header>

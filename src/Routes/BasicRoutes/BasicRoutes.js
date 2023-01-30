@@ -9,6 +9,8 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import TermsAndConditions from "../../Pages/Others/TermsAndConditions/TermsAndConditions";
 import Profile from "../../Pages/Profile/Profile";
 import ForgotPassword from "../../Pages/ForgotPassword/ForgotPassword";
+import Trending from "../../Pages/Trending/Trending";
+import Bookmarks from "../../Pages/Bookmarks/Bookmarks";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ export const router = createBrowserRouter([
       {
         path: "/forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/trending",
+        element: <Trending />,
+      },
+      {
+        path: "/bookmarks",
+        element: <Bookmarks />,
       },
     ],
   },

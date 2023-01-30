@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import LeftSideNav from "../LeftSideNav/LeftSideNav";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
 import { Image } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
@@ -46,6 +46,9 @@ const Header = () => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
+            <Nav.Link onClick={() => navigate("/trending")}>
+              Trending News
+            </Nav.Link>
           </Nav>
           {user ? (
             <Nav>
@@ -59,6 +62,9 @@ const Header = () => {
               >
                 <NavDropdown.Item onClick={() => navigate("/profile")}>
                   View Profile
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={() => navigate("/bookmarks")}>
+                  Your Bookmarks
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={handleLogOut}>

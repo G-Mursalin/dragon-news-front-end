@@ -5,8 +5,11 @@ import useTitle from "../../Hooks/useTitle";
 
 const News = () => {
   const news = useLoaderData();
-  const { image_url, title, details, category_id } = news;
   useTitle("News");
+  console.log(news);
+  if (news.status === "fail") return <h3>{news.message}</h3>;
+
+  const { image_url, title, details, category_id } = news.data.oneNews;
 
   return (
     <Card>

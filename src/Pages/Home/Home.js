@@ -8,11 +8,12 @@ const Home = () => {
   const [smShow, setSmShow] = useState(false);
   const [newsId, setNewsId] = useState(null);
   const news = useLoaderData();
+
   useTitle("Home");
   return (
     <div>
       <h6>Total {news.length} news</h6>
-      {news.map((val) => (
+      {news.data.news.map((val) => (
         <NewsSummaryCard
           key={val._id}
           news={val}

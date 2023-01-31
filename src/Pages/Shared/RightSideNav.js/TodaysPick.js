@@ -13,7 +13,7 @@ const TodaysPick = () => {
 
   return (
     <div style={{ cursor: "pointer" }}>
-      <h4 className="mt-4">Todays Pick:</h4>
+      <h4 className="mt-4">Todays Picks:</h4>
       {todaysPickNews.map((val) => (
         <Card
           className="mt-3"

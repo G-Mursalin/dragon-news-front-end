@@ -69,11 +69,20 @@ export const router = createBrowserRouter([
       },
       {
         path: "/trending",
-        element: <Trending />,
+        element: (
+          <PrivateRoute>
+            <Trending />
+          </PrivateRoute>
+        ),
+        loader: () => fetch("http://localhost:5000/api/v1/news/trending"),
       },
       {
         path: "/bookmarks",
-        element: <Bookmarks />,
+        element: (
+          <PrivateRoute>
+            <Bookmarks />
+          </PrivateRoute>
+        ),
       },
     ],
   },

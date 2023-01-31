@@ -12,7 +12,7 @@ const Home = () => {
   useTitle("Home");
   return (
     <div>
-      <h6>Total {news.length} news</h6>
+      <h6>Total {news.data.news.length} news</h6>
       {news.data.news.map((val) => (
         <NewsSummaryCard
           key={val._id}

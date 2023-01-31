@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { FaEye, FaRegBookmark, FaShareAlt, FaStar } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaEye,
+  FaRegBookmark,
+  FaShareAlt,
+  FaStar,
+} from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import { AuthContext } from "../../../Contexts/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const NewsSummaryCard = ({ news, setSmShow, setNewsId }) => {
   const { _id, title, details, image_url, author, rating, total_view } = news;
+  const { user } = useContext(AuthContext);
+
+  const handleBookmarks = () => {
+    const data = { user_id: user.uid, news_id: _id, title, details, image_url };
+
+    //  Send data to backend
+    fetch("http://localhost:5000/api/v1/bookmarks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast.success(data.status);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <Card className="mb-5">
@@ -24,7 +53,15 @@ const NewsSummaryCard = ({ news, setSmShow, setNewsId }) => {
             </div>
           </div>
           <div>
-            <FaRegBookmark className="me-2" role="button" />
+            <Button
+              onClick={handleBookmarks}
+              variant="outline-dark"
+              role="button"
+              className="me-2"
+            >
+              <FaRegBookmark role="button" />
+            </Button>
+
             <Button
               variant="outline-dark"
               onClick={() => {

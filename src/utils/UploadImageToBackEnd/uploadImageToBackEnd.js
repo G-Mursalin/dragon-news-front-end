@@ -5,10 +5,13 @@ const uploadImageToBackEnd = async (photo) => {
   try {
     const formData = new FormData();
     formData.append("image", photo);
-    const response = await fetch(`http://localhost:5000/upload-image`, {
-      method: "POST",
-      body: formData,
-    });
+    const response = await fetch(
+      `https://dragon-news.onrender.com/upload-image`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
     const data = await response.json();
     console.log(data);
     if (data.success) {

@@ -20,7 +20,7 @@ const NewsSummaryCard = ({ news, setSmShow, setNewsId }) => {
     const data = { user_id: user.uid, news_id: _id, title, details, image_url };
 
     //  Send data to backend
-    fetch("http://localhost:5000/api/v1/bookmarks", {
+    fetch("https://dragon-news.onrender.com/api/v1/bookmarks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

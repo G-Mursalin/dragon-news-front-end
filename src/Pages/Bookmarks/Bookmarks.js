@@ -10,7 +10,7 @@ const Bookmarks = () => {
 
   const handleRemoveBookmarks = (user_id, news_id) => {
     //  Send data to backend
-    fetch(`http://localhost:5000/api/v1/bookmarks/${user_id}/${news_id}`, {
+    fetch(`https://dragon-news.onrender.com/api/v1/bookmarks/${user_id}/${news_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -24,7 +24,7 @@ const Bookmarks = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/v1/bookmarks/${user.uid}`, {})
+    fetch(`https://dragon-news.onrender.com/api/v1/bookmarks/${user.uid}`, {})
       .then((response) => response.json())
       .then((data) => {
         setBookmarksNews(data.data.bookmarks);

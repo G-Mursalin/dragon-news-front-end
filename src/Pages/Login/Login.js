@@ -68,7 +68,7 @@ const Login = () => {
           type="password"
           name="password"
           className="form-control"
-          placeholder="Enter YourPpassword"
+          placeholder="Enter Your Password"
           id="exampleInputPassword1"
           required
         />

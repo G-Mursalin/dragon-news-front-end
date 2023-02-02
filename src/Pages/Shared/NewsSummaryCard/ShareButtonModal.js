@@ -17,8 +17,8 @@ import {
 
 const ShareButtonModal = ({ smShow, setSmShow, newsId }) => {
   const shareUrl = newsId
-    ? `http://localhost:3000/news/${newsId}`
-    : "http://localhost:3000/home";
+    ? `https://login-various-way.firebaseapp.com/news/${newsId}`
+    : "https://login-various-way.firebaseapp.com/home";
 
   return (
     <Modal size="md" show={smShow} onHide={() => setSmShow(false)}>

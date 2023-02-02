@@ -6,7 +6,7 @@ const TodaysPick = () => {
   const [todaysPickNews, setTodaysPickNews] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:5000/api/v1/news/todays-pick")
+    fetch("https://dragon-news.onrender.com/api/v1/news/todays-pick")
       .then((res) => res.json())
       .then((data) => setTodaysPickNews(data.data.todays_pick));
   }, []);

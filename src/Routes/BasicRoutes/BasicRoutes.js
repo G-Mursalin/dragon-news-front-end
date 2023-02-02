@@ -20,18 +20,20 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/api/v1/news"),
+        loader: () => fetch("https://dragon-news.onrender.com/api/v1/news"),
       },
       {
         path: "/home",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/api/v1/news"),
+        loader: () => fetch("https://dragon-news.onrender.com/api/v1/news"),
       },
       {
         path: "/category/:id",
         element: <Category />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/news/category/${params.id}`),
+          fetch(
+            `https://dragon-news.onrender.com/api/v1/news/category/${params.id}`
+          ),
       },
       {
         path: "/news/:id",
@@ -41,7 +43,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/v1/news/${params.id}`),
+          fetch(`https://dragon-news.onrender.com/api/v1/news/${params.id}`),
       },
       {
         path: "/login",
@@ -74,7 +76,8 @@ export const router = createBrowserRouter([
             <Trending />
           </PrivateRoute>
         ),
-        loader: () => fetch("http://localhost:5000/api/v1/news/trending"),
+        loader: () =>
+          fetch("https://dragon-news.onrender.com/api/v1/news/trending"),
       },
       {
         path: "/bookmarks",

@@ -3,7 +3,7 @@ import { AuthContext } from "../../Contexts/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import useTitle from "../../Hooks/useTitle";
-import uploadImageToImgBBAndGetURL from "../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
+import uploadImageToBackEnd from "../../utils/UploadImageToBackEnd/uploadImageToBackEnd";
 
 const Signup = () => {
   const { createUser, userUpdateProfile, verifyEmail } =
@@ -34,7 +34,8 @@ const Signup = () => {
       return;
     }
 
-    const photoURL = await uploadImageToImgBBAndGetURL(photo);
+    const photoURL = await uploadImageToBackEnd(photo);
+    console.log(photoURL);
 
     // Firebase Signup
     createUser(email, password)

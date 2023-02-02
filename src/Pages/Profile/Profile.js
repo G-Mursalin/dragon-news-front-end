@@ -8,7 +8,7 @@ import { Image } from "react-bootstrap";
 import { toast } from "react-toastify";
 import { FaUser } from "react-icons/fa";
 import useTitle from "../../Hooks/useTitle";
-import uploadImageToImgBBAndGetURL from "./../../utils/UploadImageToImgBB/uploadImageToImgBBAndGetURL";
+import uploadImageToBackEnd from "./../../utils/UploadImageToBackEnd/uploadImageToBackEnd";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
 
@@ -45,7 +45,7 @@ const Profile = () => {
     if (!photo) {
       photoURL = user?.photoURL;
     } else {
-      photoURL = await uploadImageToImgBBAndGetURL(photo);
+      photoURL = await uploadImageToBackEnd(photo);
     }
 
     // Send data to firebase

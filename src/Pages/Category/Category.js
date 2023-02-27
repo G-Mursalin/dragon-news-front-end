@@ -1,11 +1,16 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import NewsSummaryCard from "../Shared/NewsSummaryCard/NewsSummaryCard";
 import useTitle from "../../Hooks/useTitle";
+import Loading from "../Shared/Spinner/Loading";
 
 const Category = () => {
   useTitle("Category");
   const news = useLoaderData();
+  const navigation = useNavigation();
+
+  // Handle Data Loading
+  if (navigation.status === "loading") return <Loading />;
 
   return (
     <div>

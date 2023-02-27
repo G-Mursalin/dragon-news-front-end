@@ -35,7 +35,6 @@ const Signup = () => {
     }
 
     const photoURL = await uploadImageToBackEnd(photo);
-    console.log(photoURL);
 
     // Firebase Signup
     createUser(email, password)

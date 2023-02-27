@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigation } from "react-router-dom";
 import NewsSummaryCard from "../Shared/NewsSummaryCard/NewsSummaryCard";
 import ShareButtonModal from "../Shared/NewsSummaryCard/ShareButtonModal";
+import Loading from "../Shared/Spinner/Loading";
 
 const Trending = () => {
   const { data } = useLoaderData();
   const [smShow, setSmShow] = useState(false);
   const [newsId, setNewsId] = useState(null);
+  const navigation = useNavigation();
+
+  // Handle Data Loading
+  if (navigation.status === "loading") return <Loading />;
 
   return (
     <div>
